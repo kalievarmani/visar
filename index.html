@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+    .container {
+      max-width: 1140px;
+      margin: 0 auto;
+    }
+    .video-container {
+        position: relative;
+        height: 100vh;
+        overflow: hidden;
+    }
+    .video-background {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: -2;
+    }
+    .video-overlay {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: -1;
+    }
+    
+    /* Header Styles */
+    .header {
+      max-width: 1140px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      position: relative;
+    }
+    .logo {
+      max-width: 60px;
+      max-height: 60px;
+      z-index: 1001;
+    }
+    .logo img {
+      width: 100%;
+      filter: invert(1);
+    }
+    .navigation {
+      display: flex;
+      gap: 20px;
+      font-weight: 700;
+      transition: all 0.3s ease;
+    }
+    .nav a {
+      text-decoration: none;
+      color: #fff;
+      font-size: 20px;
+      transition: color .3s;
+    }
+    .nav a[href^="#footer"] {
+      scroll-behavior: smooth;
+    }
+    .nav a:hover {
+      color: #10778c;
+    }
+    
+    /* Burger Menu */
+    .burger-menu {
+      display: none;
+      flex-direction: column;
+      justify-content: space-around;
+      width: 30px;
+      height: 25px;
+      cursor: pointer;
+      z-index: 1001;
+    }
+    .burger-line {
+      width: 100%;
+      height: 3px;
+      background: #fff;
+      transition: all 0.3s ease;
+    }
+    .burger-menu.active .burger-line:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    .burger-menu.active .burger-line:nth-child(2) {
+      opacity: 0;
+    }
+    .burger-menu.active .burger-line:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -6px);
+    }
+    
+    /* Mobile Navigation */
+    .mobile-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.9);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      transform: translateY(-100%);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+    .mobile-nav.active {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    .mobile-nav .nav {
+      margin: 15px 0;
+    }
+    .mobile-nav .nav a {
+      font-size: 24px;
+    }
+
+    .offer {
+      display: flex;
+      flex-direction: column;
+      margin: 200px 0 270px 0 ;
+      gap: 50px;
+    }
+    .offer h1 {
+      font-size: 60px;
+      color: #fff;
+    }
+    .offer h3 {
+      color: #000;
+      max-width: 600px;
+    }
+    .buttons {
+      display: flex;
+      gap: 10px;
+    }
+    .buttons a{
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-size: 18px;
+      font-weight: 700;
+    }
+    #apply-btn {
+      color: #10778c;
+      background-color: #fff;
+      text-decoration: none;
+      transition: background .3s ease, color .3s;
+    }
+    #apply-btn:hover {
+      background: #10778c;
+      color: #fff;
+    }
+    #Whatsapp-btn {
+      color: #fff;
+      background-color: #10778c;
+      text-decoration: none;
+      transition: background .3s ease, color .3s;
+    }
+    #Whatsapp-btn:hover {
+      background: #fff;
+      color: #000;
+    }
+    .about-us {
+      display: flex;
+      margin-top: 30vh;
+      margin-bottom: 10vh;
+    }
+    .about-us_image{
+      max-width: 500px;
+    }
+    .about-us img {
+      width: 100%;
+      border-radius: 20px;
+    }
+    .about-us_info {
+      max-width: 500px;
+      display: flex;
+      align-items: start;
+      gap: 20px;
+      justify-content: center;
+      flex-direction: column;
+      padding-left: 40px;
+    }
+    .about-us_info h3 {
+      font-size: 22px;
+      color: #10778c;
+    }
+    .about-us_info h2 {
+      font-size: 40px;
+      font-weight: 700;
+    }
+    .about-us_info p {
+      width: 100%;
+      letter-spacing: 0.1em;
+      font-weight: 500;
+    }
+    .about-us_info a {
+      text-decoration: none;
+      color: #fff;
+      font-size: 18px;
+      background: #10778c;
+      padding: 10px 20px;
+      border-radius: 20px;
+      transition: background .3s, color .3s;
+    }
+    .about-us_info a:hover {
+      color: #000;
+      background: #fff;
+    }
+
+    /* Добавляем новые стили для слайдера */
+    .swiper {
+      display: none; /* По умолчанию скрыт */
+      width: 100%;
+      padding-bottom: 20px;
+    }
+    
+    .swiper-slide {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .country-images.swiper-slide {
+      min-width: auto;
+      margin: 0;
+    }
+    
+    .swiper-pagination {
+      position: relative;
+      margin-top: 15px;
+    }
+    
+    .swiper-button-prev,
+    .swiper-button-next {
+      color: white;
+      width: 30px;
+      height: 30px;
+      background: rgba(0,0,0,0.5);
+      border-radius: 50%;
+    }
+    
+    .swiper-button-prev::after,
+    .swiper-button-next::after {
+      font-size: 16px;
+    }
+
+    .countries-background {
+      background: #f2f2f2;
+      padding-top: 10vh;
+    }
+    .countries_h2 {
+      text-align: center;
+      margin-bottom: 5vh;
+      font-size: 40px;
+      font-weight: 700;
+    }
+    .country-list {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .countries {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 5vh;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 20px;
+    }
+    
+    .country-images {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-width: 356px;
+      height: 200px;
+      border-radius: 20px;
+      margin: 10px;
+      scroll-snap-align: start;
+      flex-shrink: 0;
+      text-decoration: none; /* Убираем подчеркивание у ссылки */
+      color: #fff; /* Наследуем цвет текста */
+    }
+
+    .swiper-slide .country-images {
+      width: 100%;
+      height: 180px;
+      margin: 0;
+    }
+
+    .country-images p {
+      color: #fff;
+      font-size: 24px;
+      font-weight: 700;
+    }
+    .country-images:first-child {
+      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), url('img/japan-background.jpg') center/cover no-repeat;
+    }
+    .country-images:nth-child(2) {
+      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), url('img/uk-background.jpg') center/cover no-repeat;
+    }
+    .country-images:nth-child(3) {
+      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), url('img/europe.jpg') center/cover no-repeat;
+    }
+    .country-images:nth-child(4) {
+      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), url('img/australia.jpg') center/cover no-repeat;
+    }
+    .country-images:nth-child(5) {
+      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), url('img/usa.jpg') center/cover no-repeat;
+    }
+    .country-images:nth-child(6) {
+      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), url('img/canada.jpg') center/cover no-repeat;
+    }
+    .country-list a {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 10vh;
+      color: #fff;
+      background: #10778c;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 20px;
+      transition: transform .3s color .3s;
+    }
+
+    .country-images:first-child:hover {
+      background: url('img/japan-background.jpg') center/cover no-repeat;
+      color: #000;
+    }
+    .country-images:nth-child(2):hover {
+      background: url('img/uk-background.jpg') center/cover no-repeat;
+      color: #000;
+    }
+    .country-images:nth-child(3):hover {
+      background: url('img/europe.jpg') center/cover no-repeat;
+      color: #000;
+    }
+    .country-images:nth-child(4):hover {
+      background: url('img/australia.jpg') center/cover no-repeat;
+      color: #000;
+    }
+    .country-images:nth-child(5):hover {
+      background: url('img/usa.jpg') center/cover no-repeat;
+      color: #000;
+    }
+    .country-images:nth-child(6):hover {
+      background: url('img/canada.jpg') center/cover no-repeat;
+      color: #000;
+    }
+
+    .our-services {
+      margin: 50px 0;
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .services_info {
+      width: 500px;
+      display: flex;
+      align-items: start;
+      justify-content: space-around;
+      padding: 0 40px 0 40px;
+      letter-spacing: 0.1em;
+      flex-direction: column;
+    }
+
+    .services_info h2 {
+      font-size: 40px;
+    }
+
+    .services_info a {
+      background: #10778c;
+      padding: 10px 25px;
+      border-radius: 20px;
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      text-decoration: none;
+      transition: background .3, color .3s;
+    }
+
+    .services_info a:hover {
+      background: #fff;
+      color: #000;
+    }
+    
+    .services_image {
+      width: 500px;
+      height: 340px;
+      border-radius: 20px;
+      background: url('img/services-image.jpg') center/cover no-repeat;
+    }
+
+    .services_image img {
+      width: 100%;
+    }
+
+    .numbers-title {
+      font-size: 40px;
+      text-align: center;
+      margin-top: 40px;
+    }
+    .numbers {
+      margin: 40px 0 100px 0;
+      display: flex;
+      justify-content: space-between;
+    }
+    .numbers-image {
+      width: 45%;
+    }
+    .numbers-image img {
+      width: 100%;
+      border-radius: 20px;
+    }
+    .numbers-info {
+      width: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .numbers-info_block {
+      width: 265px;
+      height: 129px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding-right: 10px;
+      background: #f1f5eb;
+      border-radius: 20px;
+    }
+    .number-info_icons {
+      width: 84px;
+      height: 85px;
+    } 
+    .number-info_icons img {
+      width: 100%;
+    }
+    .numbers-info_text h3 {
+      font-size: 40px;
+      font-weight: 700;
+    }
+
+    .why-choose-us_background {
+      width: 95%;
+      margin: 0 auto;
+      padding: 20px 0 20px 0;
+      border-radius: 20px;
+      background:linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), url('img/why-choose-us_background.jpg') center/cover no-repeat;
+    }
+
+    .why-choose-us {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+      margin-top: 15vh;
+    }
+    .why-choose-us h2 {
+      color: #fff;
+      font-size: 40px;
+      font-weight: 700;
+    }
+    .why-choose-us p {
+      color: #fff;
+    }
+    .why-choose-us_main {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+    }
+    .why-choose-us_blocks {
+      display: flex;
+      gap: 8px;
+      max-width: 500px;
+      border: 1px solid #fff;
+      border-radius: 20px;
+      margin: 10px;
+      padding: 15px;
+    }
+
+    .why-choose-us_blocks img {
+      width: 40px;
+      height: 40px;
+      filter: invert(1);
+    }
+
+    .how-it-works {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+      justify-content: space-between;
+      margin: 50px 0 70px 0;
+    }
+
+    .how-it-works h2 {
+      font-size: 40px;
+    }
+
+    .how-it-works_icons {
+      display: flex;
+      width: 100%;
+      justify-content: space-around;
+    }
+
+    .how-it-works_icons p {
+      font-weight: 700;
+      margin-top: 10px;
+    }
+
+    .how-it-works img {
+      width: 100px;
+      height: 100px;
+    }
+
+    .faq-background {
+      background: #f2f2f2;
+    }
+    .faq {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      padding: 50px 0;
+      margin: 10vh 0;
+    }
+    .faq_h2 {
+      text-align: center;
+      font-size: 40px;
+      font-weight: 700;
+    }
+    .faq_content {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      padding-left: 100px;
+    }
+    .faq_content:hover {
+      cursor: pointer;
+    }
+    details summary {
+      font-size: 18px;
+      font-weight: 700;
+    }
+    .answer p {
+      margin-top: 10px;
+    }
+    .contact-us {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 30px;
+      background: url('img/contact-us_back2.jpg') center/cover no-repeat;
+      height: 434px;
+      border-radius: 20px;
+      padding-left: 40px;
+    }
+    .contact-us h2 {
+      font-size: 40px;
+    }
+    .contact-us h3 {
+      font-size: 18px;
+    }
+    .contact-us_buttons {
+      display: flex;
+      gap: 30px;
+    }
+    .contact-us_buttons a {
+      text-decoration: none;
+    }
+    .contact-us-whatsapp_inner {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      background: #fff;
+      color: #10778c;
+      border-radius: 30px;
+      padding: 10px 20px;
+      font-size: 18px;
+      font-weight: 700;
+      transition: color .3s, background .3s;
+    }
+    .contact-us-whatsapp_inner:hover {
+      color: #fff;
+      background: #000;
+    }
+    .contact-us-equire_inner {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      background: #10778c;
+      color: #fff;
+      border-radius: 30px;
+      padding: 10px 20px;
+      font-size: 18px;
+      font-weight: 700;
+      transition: color .3s, background .3s;
+    }
+    .contact-us-equire_inner:hover {
+      color: #000;
+      background: #fff;
+    }
+    .footer-background {
+      background-color: #10778c;
+      margin-top: 10vh;
+    }
+    .footer {
+      padding: 30px 0;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+    .all-social {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 20px;
+      font-size: 18px;
+      color: #fff;
+    }
+    .all-social a {
+      text-decoration: none;
+      color: #fff;
+    }
+    .all-social img {
+      width: 60px;
+      height: 70px;
+      filter: invert(1);
+    }
+    .social-icons {
+      display: flex;
+      gap: 20px;
+    }
+    .all-social ion-icon {
+      width: 40px;
+      height: 40px;
+    }
+    .all-links {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 10px;
+      color: #fff;
+    }
+    .all-links a {
+      text-decoration: none;
+      color: #fff;
+    }
+    .all-links h3 {
+      font-size: 22px;
+    }
+    .all-links p {
+      font-size: 18px;
+      font-weight: 700;
+    }
+    .all-contacts {
+      max-width: 300px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .all-contacts a {
+      text-decoration: none;
+      color: #fff;
+    }
+    .all-contacts h3 {
+      color: #fff;
+      font-size: 22px;
+      font-weight: 700;
+    }
+    .contact_icons {
+      display: flex;
+      gap: 20px;
+    }
+    .contact_icons_inner ion-icon {
+      font-size: 20px;
+    }
+
+    /* Burger Menu Styles */
+    .burger-menu {
+      display: none;
+      flex-direction: column;
+      justify-content: space-around;
+      width: 30px;
+      height: 25px;
+      cursor: pointer;
+      z-index: 1001;
+      position: relative;
+    }
+    
+    .burger-line {
+      width: 100%;
+      height: 3px;
+      background: #fff;
+      transition: all 0.3s ease;
+    }
+    
+    .burger-menu.active .burger-line:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    
+    .burger-menu.active .burger-line:nth-child(2) {
+      opacity: 0;
+    }
+    
+    .burger-menu.active .burger-line:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -6px);
+    }
+    
+    /* Mobile Navigation */
+    .mobile-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: rgba(16, 119, 140, 0.98);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      transform: translateY(-100%);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+    
+    .mobile-nav.active {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    
+    .mobile-nav .nav {
+      margin: 20px 0;
+      text-align: center;
+    }
+    
+    .mobile-nav .nav a {
+      font-size: 24px;
+      color: white;
+      padding: 10px 20px;
+      display: block;
+    }
+
+    @media (max-width: 1024px) {
+      .header, .container {
+        padding: 0 20px;
+      }
+
+      .header {
+        flex-direction: row;
+        align-items: center;
+      }
+
+      .navigation {
+        display: none;
+      }
+
+      .burger-menu {
+        display: flex;
+      }
+
+      .offer h1 {
+        font-size: 40px;
+      }
+
+      .offer h3 {
+        font-size: 18px;
+      }
+
+      .about-us {
+        flex-direction: column;
+        align-items: start;
+        /* width: 100%; */
+      }
+
+      .about-us_image, .about-us_info {
+        max-width: 90%;
+        padding-left: 0;
+      }
+
+      .numbers {
+        flex-direction: column;
+        gap: 30px;
+      }
+
+      .numbers-image, .numbers-info {
+        width: 100%;
+      }
+
+      .faq_content {
+        padding-left: 20px;
+      }
+
+      .contact-us {
+        padding: 20px;
+        height: auto;
+      }
+
+      .footer {
+        flex-direction: column;
+        gap: 30px;
+        align-items: start;
+        text-align: start;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .video-background {
+        height: 100vh;
+      }
+      .video-overlay {
+        height: 100vh;
+      }
+      .country-images {
+        min-width: 300px;
+      }
+
+      .offer h1 {
+        font-size: 32px;
+      }
+
+      .offer h3 {
+        font-size: 16px;
+      }
+
+      .about-us_info {
+        width: 100%;
+      }
+
+      .about-us_info h2 {
+        font-size: 24px;
+      }
+
+      .services_info h2 {
+        font-size: 24px;
+      }
+
+      .buttons {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .buttons a {
+        width: 100%;
+        text-align: center;
+      }
+
+      .numbers-info_block {
+        width: 100%;
+        flex-direction: column;
+        height: auto;
+        padding: 20px;
+      }
+
+      .faq_h2, .countries_h2, .contact-us h2 {
+        font-size: 28px;
+      }
+
+      .contact-us_buttons {
+        flex-direction: column;
+      }
+
+      .countries {
+        display: none; /* Скрываем десктопную версию */
+      }
+      
+      .swiper {
+        display: block; /* Показываем слайдер */
+      }
+      
+      .country-images {
+        min-width: 300px;
+        height: 180px;
+      }
+
+      .our-services {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+      }
+
+      .services_info, .services_image {
+        width: 100%;
+        gap: 15px;
+        padding: 0;
+      }
+
+      .services_info a {
+        width: 100%;
+        text-align: center;
+      }
+
+      .services_image {
+        height: 200px;
+      }
+
+      .why-choose-us_main {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .why-choose-us_blocks {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+      }
+
+      .why-choose-us_blocks img {
+        margin-bottom: 10px;
+      }
+
+      .how-it-works_icons {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 20px;
+      }
+
+      .how-it-works img {
+        width: 150px;
+        height: 150px;
+      }
+
+      .numbers-info {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .faq_content {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+
+      .footer {
+        padding: 30px 20px;
+      }
+
+      .contact-us h3 {
+        font-size: 16px;
+      }
+
+      .swiper {
+        position: relative; /* Чтобы стрелки позиционировались внутри */
+      }
+
+      .swiper-button-next,
+      .swiper-button-prev {
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+  </style>
+</head>
+<body>
+    <video autoplay muted loop class="video-background">
+        <source src="img/background-video.mp4" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
+
+    <div class="header">
+      <div class="logo">
+        <a href="index.html">
+          <img class="icon-logo" src="img/logo.png" alt="">
+        </a>
+      </div>
+      
+      <div class="burger-menu">
+        <div class="burger-line"></div>
+        <div class="burger-line"></div>
+        <div class="burger-line"></div>
+      </div>
+      
+      <div class="navigation">
+        <div class="nav">
+          <a href="index.html">Home</a>
+        </div>
+        <div class="nav">
+          <a href="about.html">About Us</a>
+        </div>
+        <!-- <div class="nav">
+          <a href="#our-services">Our Services</a>
+        </div> -->
+        <div class="nav">
+          <a href="countries.html">Countries</a>
+        </div>
+        <div class="nav">
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+      
+      <div class="mobile-nav">
+        <div class="nav">
+          <a href="index.html">Home</a>
+        </div>
+        <div class="nav">
+          <a href="about.html">About Us</a>
+        </div>
+        <!-- <div class="nav">
+          <a href="#">Our Services</a>
+        </div> -->
+        <div class="nav">
+          <a href="countries.html">Countries</a>
+        </div>
+        <div class="nav">
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+    <section class="offer">
+        <h1>Visas made simple,Wherever you go.</h1>
+        <div class="buttons">
+          <a id="apply-btn" href="tel:971589334401">Apply now</a>
+          <a id="Whatsapp-btn" href="https://wa.me/971589334401">Whatsapp</a>
+        </div>
+    </section>
+    </div>
+
+    <div class="container">
+    <section class="about-us">
+      <div class="about-us_image">
+        <img src="img/about-us_image.jpg" alt="">
+      </div>
+      <div class="about-us_info">
+        <h3>About Vizar</h3>
+        <h2>Meet Your Visa Experts</h2>
+        <p>At Vizar, we believe that hassle-free travel should be a reality for everyone.
+           As apremier visa service company based in Dubai, we specialize in simplifying
+           the complexities of visa applications, ensuring a seamless experience for our clients. 
+        </p>
+        <a href="about.html">Show more</a>
+      </div>
+    </section>
+    </div>
+
+    <div class="countries-background"> 
+    <div class="container">
+        <h2 class="countries_h2">Countries we serve</h2>
+
+        <section class="country-list">
+            <!-- Десктопная версия (горизонтальный скролл) -->
+            <div class="countries">
+                <a href="japan.html" class="country-images">
+                    <p>JAPAN</p>
+                </a>
+                <a href="uk.html" class="country-images">
+                    <p>UNITED KINGDOM</p>
+                </a>
+                <a href="europe.html" class="country-images">
+                    <p>EUROPE</p>
+                </a>
+                <a href="australia.html" class="country-images">
+                    <p>AUSTRALIA</p>
+                </a>
+                <a href="usa.html" class="country-images">
+                    <p>USA</p>
+                </a>
+                <a href="#" class="country-images">
+                    <p>CANADA</p>
+                </a>
+            </div>
+            
+            <!-- Мобильная версия (слайдер) -->
+            <div class="swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <a href="japan.html" class="country-images" style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), url('img/Japan-background.jpg') center/cover no-repeat">
+                            <p>JAPAN</p>
+                        </a>
+                    </div>    
+                    <div class="swiper-slide">
+                        <a href="uk.html" class="country-images" style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), url('img/uk-background.jpg') center/cover no-repeat">
+                            <p>UNITED KINGDOM</p>
+                        </a>
+                    </div>      
+                    <div class="swiper-slide">
+                        <a href="europe.html" class="country-images" style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), url('img/europe.jpg') center/cover no-repeat">
+                            <p>EUROPE</p>
+                        </a>
+                    </div>
+                    <div class="swiper-slide">
+                        <a href="australia.html" class="country-images" style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), url('img/australia.jpg') center/cover no-repeat">
+                            <p>AUSTRALIA</p>
+                        </a>
+                    </div>
+                    <div class="swiper-slide">
+                        <a href="usa.html" class="country-images" style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), url('img/usa.jpg') center/cover no-repeat">
+                            <p>USA</p>
+                        </a>
+                    </div>
+                    <div class="swiper-slide">
+                        <a href="#" class="country-images" style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), url('img/canada.jpg') center/cover no-repeat">
+                            <p>CANADA</p>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Добавляем пагинацию и кнопки навигации -->
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+            
+            <a href="countries.html">See More</a>
+        </section>
+    </div>
+</div>
+
+    <div class="container">
+      <div class="our-services" id="our-services">
+        <div class="services_image"></div>
+
+        <div class="services_info">
+          <h2>Our Services</h2>
+          <p>Visa Assistance: Navigating theintricate visa 
+             procedures of various embassies and consulate scan
+             be dauting. Our team of experts is adept at
+             handling the serpocesses, providing personalized
+             assistance to secure your visa efficiently. 
+          </p>
+          <a class="btn" href="https://wa.me/971589334401">Know more</a>
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="why-choose-us_background">
+    <div class="container">
+      <section class="why-choose-us">
+        <h2>What Sets Us Apart From Other Visa Services in UAE?</h2>
+        <p>Our visa services are designed to fit your schedule,
+          providing support whenever you need it. Our dedicated team 
+          will assist you every step on the way. ensuring a smooth
+          application procces.  
+        </p>
+        <div class="why-choose-us_main">
+          <div class="why-choose-us_blocks"> 
+            <img src="img/check-mark.png" alt="">
+            <p>We provide efficient and reliable visa assistance in the UAE, going 
+              above and beyond to ensure your visa is processed in the shortest 
+              possible time.
+            </p>
+          </div>
+          <div class="why-choose-us_blocks">
+            <img src="img/check-mark.png" alt="">
+            <p>Our visa consultants will carefull review your details,
+               address any questions, and provide expert guidance for your 
+               chosen destination. We can also suggest customized itineraries
+               tailored to your unique travel plans.
+            </p>
+          </div>
+          <div class="why-choose-us_blocks">  
+            <img src="img/check-mark.png" alt="">
+            <p>We provide a variety of services to meet your needs,
+               from complete travel itinnerreries to imdividual tickets.
+               Our team of experts is here to guide you every step of the way,
+               ensuring your journey is smooth, safe, and enjoyable.
+            </p>
+          </div>
+          <div class="why-choose-us_blocks">
+            <img src="img/check-mark.png" alt="">
+            <p>As a trusted visa company in the UAE, we bring a proven history
+               of succes and extensive expertise in dedicated to ensuring you 
+               receive your visa as quickly as possible.
+            </p>
+          </div>
+      </section>
+    </div>
+    </div>
+
+    <div class="container">
+      <div class="how-it-works">
+        <h2>How it works?</h2>
+        <div class="how-it-works_icons">
+          <div>
+            <img src="img/message.png" alt="">
+            <p>Message/Call</p>
+          </div>
+          <div>
+            <img src="img/appointment.png" alt="">
+            <p>Appointment</p>
+          </div>
+          <div>
+            <img src="img/work.png" alt="">
+            <p>Processing</p>
+          </div>
+          <div>
+            <img src="img/visa-complete.png" alt="">
+            <p>Ready Visa</p>
+          </div>
+          </div>
+        </div>
+    </div>
+
+    <div class="container">
+      <h2 class="numbers-title">Our Numbers</h2>
+      <section class="numbers">
+        <div class="numbers-image">
+          <img src="img/numbers_image.jpg" alt="">
+        </div>
+        <div class="numbers-info">
+          <div class="numbers-info_block">
+            <div class="number-info_icons">
+              <img src="img/visa-approved.png" alt="">
+            </div>
+            <div class="numbers-info_text">
+              <h3>98.1%</h3>
+              <p>Approval rate</p>
+            </div>
+          </div>
+          <div class="numbers-info_block">
+            <div class="number-info_icons">
+              <img src="img/visa.png" alt="">
+            </div>
+            <div class="numbers-info_text">
+              <h3>5000+</h3>
+              <p>visas</p>
+            </div>
+          </div>
+          <div class="numbers-info_block">
+            <div class="number-info_icons">
+              <img src="img/clients.png" alt="">
+            </div>
+            <div class="numbers-info_text">
+              <h3>1000+</h3>
+              <p>Happy clients</p>
+            </div>
+          </div>
+          <div class="numbers-info_block">
+            <div class="number-info_icons">
+              <img src="img/country.png" alt="">
+            </div>
+            <div class="numbers-info_text">
+              <h3>60+</h3>
+              <p>Countries</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="container">
+      <section class="contact-us" id="contact">
+        <h2>Ready to start your journey</h2>
+        <h3>Get expert visa assistance with a smooth, stress-free application. Click below to begin.</h3>
+
+        <div class="contact-us_buttons">
+          <a id="contact-us_whatsapp" href="https://wa.me/971589334401">
+            <div class="contact-us-whatsapp_inner">
+              <ion-icon name="logo-whatsapp"></ion-icon>
+              Whatsapp Us
+            </div>
+          </a>
+          <a id="contact-us_equire" href="tel:971589334401">
+            <div class="contact-us-equire_inner">
+              <ion-icon name="call-outline"></ion-icon>
+              Equire now
+            </div>
+          </a>
+        </div>
+      </section>
+    </div>
+
+    <div class="footer-background">
+      <div class="container">
+        <section id="footer" class="footer">
+          <div class="all-social">
+            <a href="#">
+              <img src="img/logo.png" alt="">
+            </a>
+            <P>Wizar is your reliable assistant <br>in solving visa problems</P>
+            <div class="social-icons">
+              <a href="https://wa.me/971589334401">
+                <ion-icon name="logo-whatsapp"></ion-icon>
+              </a>                
+              <a href="mailto:vizaruae@gmail.com">
+                <ion-icon name="mail-outline"></ion-icon>
+              </a>               
+              <a href="#">
+                <ion-icon name="logo-instagram"></ion-icon>
+              </a>
+            </div>
+          </div>
+          <div class="all-links">
+            <h3>Quick Links</h3>
+            <a href="index.html">
+              <p>Home</p>
+            </a>
+            <a href="countries.html">
+              <p>Countries</p>
+            </a>
+            <a href="about.html">
+              <p>About Us</p>
+            </a>
+            <a href="#contact">
+              <p>Contact</p>
+            </a>
+          </div>
+
+          <div class="all-contacts">
+            <h3>Contact Us</h3>
+
+            <a href="tel:971589334401">
+              <div class="contact_icons">
+                <div class="contact_icons_inner">
+                  <ion-icon name="call-outline"></ion-icon>
+                </div>
+                <p>971589334401</p>
+              </div>
+            </a>
+
+            <a href="mailto:vizaruae@gmail.com">
+              <div class="contact_icons">
+                <div class="contact_icons_inner">
+                  <ion-icon name="mail-outline"></ion-icon>
+                </div>
+                <p>vizaruae@gmail.com</p>
+              </div>
+            </a>
+
+            <a href="https://maps.google.com/?q=Meydan+Grandstand+Dubai" target="_blank" rel="noopener">
+              <div class="contact_icons">
+                <div class="contact_icons_inner">
+                  <ion-icon name="compass-outline"></ion-icon>
+                </div>
+                <p>
+                  Meydan Grandstand, 6th floor,
+                  Meydan Road, Nad Al Sheba,
+                  Dubai, United Arab Emirates
+                </p>
+              </div>
+            </a>
+          </div>
+
+        </section>
+      </div>
+    </div>
+    
+
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+
+      console.log(window.innerHeight);
+    // Burger Menu Functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const burgerMenu = document.querySelector('.burger-menu');
+      const mobileNav = document.querySelector('.mobile-nav');
+      
+      burgerMenu.addEventListener('click', function() {
+        this.classList.toggle('active');
+        mobileNav.classList.toggle('active');
+        
+        // Блокировка скролла при открытом меню
+        if (mobileNav.classList.contains('active')) {
+          document.body.style.overflow = 'hidden';
+        } else {
+          document.body.style.overflow = '';
+        }
+      });
+      
+      // Закрытие меню при клике на ссылку
+      const navLinks = document.querySelectorAll('.mobile-nav .nav a');
+      navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          burgerMenu.classList.remove('active');
+          mobileNav.classList.remove('active');
+          document.body.style.overflow = '';
+        });
+      });
+    });
+
+    // Инициализация слайдера только на мобильных
+    function initSlider() {
+      if (window.innerWidth <= 768) {
+        const swiper = new Swiper('.swiper', {
+          slidesPerView: 1,
+          spaceBetween: 20,
+          centeredSlides: true,
+          loop: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+          breakpoints: {
+            480: {
+              slidesPerView: 1.2,
+            }
+          }
+        });
+      }
+    }
+    
+    // Инициализируем при загрузке
+    document.addEventListener('DOMContentLoaded', initSlider);
+    
+    // Инициализируем при изменении размера окна
+    window.addEventListener('resize', function() {
+      // Удаляем старый слайдер если он был инициализирован
+      const swiperEl = document.querySelector('.swiper');
+      if (swiperEl && swiperEl.swiper) {
+        swiperEl.swiper.destroy();
+      }
+      initSlider();
+    });
+  </script>
+</body>
+</html>
