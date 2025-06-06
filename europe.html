@@ -807,5 +807,27 @@
       </div>
     </div>
 
+    <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const burgerMenu = document.querySelector('.burger-menu');
+    const mobileNav = document.querySelector('.mobile-nav');
+
+    burgerMenu.addEventListener('click', function() {
+      this.classList.toggle('active');
+      mobileNav.classList.toggle('active');
+      document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
+    });
+
+    const navLinks = document.querySelectorAll('.mobile-nav .nav a');
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        burgerMenu.classList.remove('active');
+        mobileNav.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+    });
+  });
+</script>
+    
 </body>
 </html>
